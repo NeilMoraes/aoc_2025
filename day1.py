@@ -34,17 +34,14 @@ def part2():
         delta = (value + rotation) if direction == "R" else (value - rotation)
         value = delta % 100
 
-        if value == 0:
+        if direction == "R":
+            counter += delta // 100
+        elif (direction == "L") & (delta < 0) & (prev_value > 0):
+            counter += -delta // 100 + 1
+        elif (value == 0) & (direction == "L"):
+            counter += -delta // 100 if rotation > 100 else 1
+        elif value == 0:
             counter += 1
-        elif (delta < 0) & (prev_value != 0):
-            counter += (rotation // 100) + (
-                1 if (prev_value - rotation % 100) < 0 else 0
-            )
-        elif delta > 99:
-            counter += (rotation // 100) + (
-                1 if (prev_value + rotation % 100) > 100 else 0
-            )
-
         print(prev_value, line, delta, value, counter)
     print(f"Part 2: {counter}")
 
@@ -54,5 +51,5 @@ if __name__ == "__main__":
     # Part 1 - 1177
     # part1()
 
-    # Part 2 - Not implemented yet
+    # Part 2 - Not implemented yet - 6180
     part2()
